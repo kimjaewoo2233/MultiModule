@@ -1,0 +1,20 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.9'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+allprojects { //하위 프로젝트들은 해당 값들을 그대로 반영한다..
+	repositories {
+		mavenCentral()
+	}
+}
+
+bootJar {
+	enabled = false
+}
+
+jar {
+	enabled = false
+}
+
