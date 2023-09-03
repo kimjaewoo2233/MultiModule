@@ -31,7 +31,6 @@ public class LoggerFilter implements Filter {
         //request 정보
         Enumeration<String> headerNames = requestWrapper.getHeaderNames();
         StringBuilder headerValues = new StringBuilder();
-
         headerNames.asIterator().forEachRemaining(headerKey -> {
             String headerValue = requestWrapper.getHeader(headerKey);
 

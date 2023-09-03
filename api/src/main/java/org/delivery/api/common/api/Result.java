@@ -6,9 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.delivery.api.common.error.ErrorCode;
-import org.delivery.api.common.error.ErrorCodeInter;
-
-import javax.validation.Valid;
+import org.delivery.api.common.error.ErrorCodeIfs;
 
 @Data
 @NoArgsConstructor
@@ -35,29 +33,29 @@ public class Result {
     /**
      * ErroCodeInter를 구현체들은 모두 ErrorCde 이넘 타입이다.
      * */
-    public static Result ERROR(ErrorCodeInter errorCodeInter){
+    public static Result ERROR(ErrorCodeIfs errorCodeIfs){
         return Result.builder()
-                .resultCode(errorCodeInter.getErrorCode())
-                .resultMessage(errorCodeInter.getDescription())
-                .resultDescription("성공")
+                .resultCode(errorCodeIfs.getErrorCode())
+                .resultMessage(errorCodeIfs.getDescription())
+                .resultDescription("에러발생")
                 .build();
     }
 
     /**
      * 예외가 일어날 경우
      * */
-    public static Result ERROR(ErrorCodeInter errorCodeInter, Throwable tx){
+    public static Result ERROR(ErrorCodeIfs errorCodeIfs, Throwable tx){
         return Result.builder()
-                .resultCode(errorCodeInter.getErrorCode())
-                .resultMessage(errorCodeInter.getDescription())
+                .resultCode(errorCodeIfs.getErrorCode())
+                .resultMessage(errorCodeIfs.getDescription())
                 .resultDescription(tx.getLocalizedMessage())
                 .build();
     }
 
-    public static Result ERROR(ErrorCodeInter errorCodeInter, String resultDescription){
+    public static Result ERROR(ErrorCodeIfs errorCodeIfs, String resultDescription){
         return Result.builder()
-                .resultCode(errorCodeInter.getErrorCode())
-                .resultMessage(errorCodeInter.getDescription())
+                .resultCode(errorCodeIfs.getErrorCode())
+                .resultMessage(errorCodeIfs.getDescription())
                 .resultDescription(resultDescription)
                 .build();
     }

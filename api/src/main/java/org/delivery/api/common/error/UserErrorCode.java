@@ -3,12 +3,11 @@ package org.delivery.api.common.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
 
 
 @Getter
 @AllArgsConstructor
-public enum UserErrorCode implements ErrorCodeInter{
+public enum UserErrorCode implements ErrorCodeIfs {
 
     USER_NOT_FOUND(400, 1404, "사용자를 찾으 수 없음")
     ;

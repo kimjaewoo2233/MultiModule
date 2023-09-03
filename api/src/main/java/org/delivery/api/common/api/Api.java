@@ -2,10 +2,9 @@ package org.delivery.api.common.api;
 
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.delivery.api.common.error.ErrorCodeInter;
+import org.delivery.api.common.error.ErrorCodeIfs;
 
 import javax.validation.Valid;
 
@@ -35,14 +34,14 @@ public class Api<T> {
         return api;
     }
 
-    public static Api<Object> ERROR(ErrorCodeInter errorCodeInter){
+    public static Api<Object> ERROR(ErrorCodeIfs errorCodeIfs){
         Api api = new Api<Object>();
-        api.result = Result.ERROR(errorCodeInter);
+        api.result = Result.ERROR(errorCodeIfs);
         return  api;
     }
-    public static Api<Object> ERROR(ErrorCodeInter errorCodeInter, String description){
+    public static Api<Object> ERROR(ErrorCodeIfs errorCodeIfs, String description){
         Api api = new Api<Object>();
-        api.result = Result.ERROR(errorCodeInter, description);
+        api.result = Result.ERROR(errorCodeIfs, description);
         return api;
     }
 
