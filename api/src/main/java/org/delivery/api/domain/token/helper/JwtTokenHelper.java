@@ -6,6 +6,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
 import org.delivery.api.common.error.ErrorCode;
+import org.delivery.api.common.error.TokenErrorCode;
 import org.delivery.api.common.exception.ApiException;
 import org.delivery.api.domain.token.ifs.TokenHelperIfs;
 import org.delivery.api.domain.token.model.TokenDTO;
@@ -81,17 +82,17 @@ public class JwtTokenHelper implements TokenHelperIfs {
         try{
             var result = parser.parseClaimsJws(token);
             return new HashMap<>(result.getBody());
+
         }catch (Exception e){
             if(e instanceof SignatureException){ //토큰이 유효하지 않을떄
-
+                throw new ApiException(TokenErrorCode.INVALID_TOKEN, e);
             }
             else if(e instanceof ExpiredJwtException){ //만료된 토큰
-
+                throw new ApiException(TokenErrorCode.EXPIRED_TOKEN, e);
             }
-            else{ //그 외
-                throw new ApiException(ErrorCode.SERVER_ERROR, e);
+            else{ //그 외 (알 수 없는 에러)
+                throw new ApiException(TokenErrorCode.TOKEN_EXCEPTION, e);
             }
         }
-        return null;
     }
 }

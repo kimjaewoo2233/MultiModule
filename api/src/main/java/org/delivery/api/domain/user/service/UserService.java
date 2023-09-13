@@ -52,4 +52,14 @@ public class UserService {
                 findFirstByEmailAndPasswordAndStatus(email,password,UserStatus.REGISTERED)
                 .orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND));
     }
+
+    public UserEntity getUserWithThrow(
+            Long userId
+    ){
+        return userRepository.
+                findFirstById(
+                        userId,
+                        UserStatus.REGISTERED
+                ).orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND));
+    }
 }
