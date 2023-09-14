@@ -14,7 +14,10 @@ import org.delivery.api.domain.user.controller.model.UserResponse;
 import org.delivery.api.domain.user.converter.UserConverter;
 import org.delivery.api.domain.user.service.UserService;
 import org.delivery.db.user.UserEntity;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -60,8 +63,16 @@ public class UserBusiness {
                 .orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT,"request Null"));
     }
 
-    public UserResponse me(Long userID) {
-        UserEntity user = userService.getUserWithThrow(userID);
+    public UserResponse me() {
+        RequestAttributes requestAttributes = Objects.requireNonNull(RequestContextHolder.getRequestAttributes());
+        Object userId = requestAttributes.getAttribute("userId",RequestAttributes.SCOPE_REQUEST);
+
+        UserEntity user = userService.getUserWithThrow(Long.parseLong(userId.toString()));
+        UserResponse response = userConverter.toResponse(user);
+        return response;
+    }
+    public UserResponse me(Long id) {
+        UserEntity user = userService.getUserWithThrow(id);
         UserResponse response = userConverter.toResponse(user);
         return response;
     }
