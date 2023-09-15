@@ -5,7 +5,7 @@ spring:
       format_sql: true
       dialect: org.hibernate.dialect.MySQL8Dialect
     hibernate:
-      ddl-auto: validate  # 작성한 엔티티랑 연결할 DB랑 다를 경우 애플리케이션은 동작하지 않는다.
+      ddl-auto: create  # 작성한 엔티티랑 연결할 DB랑 다를 경우 애플리케이션은 동작하지 않는다.
   datasource:
     url: jdbc:mysql://localhost:3306/delivery?useSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
